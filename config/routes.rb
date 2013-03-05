@@ -3,8 +3,8 @@ App1::Application.routes.draw do
 
 
   resources :groups
-
-
+  #resources :users
+  
   devise_for :users
 
   devise_for :admins

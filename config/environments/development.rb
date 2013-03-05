@@ -5,9 +5,13 @@ App1::Application.configure do
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
-
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   # Log error messages when you accidentally call methods on nil.
   config.whiny_nils = true
+  ################################
+  config.action_mailer.perform_deliveries    = true
+  config.action_mailer.raise_delivery_errors = true
+  ##############################
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
@@ -34,4 +38,9 @@ App1::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  config.action_mailer.delivery_method = :postmark
+  #config.action_mailer.postmark_api_key = "a78efc1c-f665-4d37-b746-57992f1b1e1b"
+  config.action_mailer.postmark_settings= {:api_key => "a78efc1c-f665-4d37-b746-57992f1b1e1b"}
+  #config.postmark_signature= "e59b0bf711384e277ade37b8fc553224@inbound.postmarkapp.com"
 end
