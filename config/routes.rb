@@ -1,10 +1,11 @@
 App1::Application.routes.draw do
   resources :companies
 
-
-  resources :groups
-  #resources :users
   
+  resources :groups
+  #resources :users, :only => [:index]
+  match 'users/' => 'users#index',:as => :user,         :via => :GET
+  match 'users/group/' => 'users#add_to_group_as_member',:as => :user,         :via => :PUT
   devise_for :users
 
   devise_for :admins

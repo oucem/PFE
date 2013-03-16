@@ -11,7 +11,7 @@ class Company
   #field :phone,              :type => String, :default => ""
   #field :website,              :type => String, :default => ""
   
-  def users
-     self.groups.where(type: 'user')
-  end
+ # def users
+   #  self.groups.where(type: 'user')
+  #end
 end
