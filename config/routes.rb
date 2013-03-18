@@ -5,7 +5,9 @@ App1::Application.routes.draw do
   resources :groups
   #resources :users, :only => [:index]
   match 'users/' => 'users#index',:as => :user,         :via => :GET
+  match 'users/update/:id' => 'users#update',:as => :user,         :via => :PUT
   match 'users/group/' => 'users#add_to_group_as_member',:as => :user,         :via => :PUT
+  match 'users/delete/' => 'users#destroy',:as => :user,         :via => :DELETE
   devise_for :users
 
   devise_for :admins

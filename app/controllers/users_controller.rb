@@ -42,4 +42,38 @@ class UsersController < ApplicationController
       end
     end
   end
+  def send_invitation
+    
+  end
+  
+  # PUT /users/1d
+  # PUT /users/1d.json
+  def update
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        #format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.json { render :json => @user.to_json, :status => 200 }
+      else
+        #format.html { render action: "edit" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+   # PUT /users/delete.json
+      def destroy
+        @user = User.find(params[:_id])
+        @user.destroy
+         respond_to do |format|
+      if @user.destroy
+        #format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.json { render :json => @user.to_json, :status => 200 }
+      else
+        #format.html { render action: "edit" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+       
+    end
 end
