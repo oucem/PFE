@@ -21,6 +21,7 @@ class User
   field :resp,              :type => String, :default => ""
   field :start_date,              :type => String, :default => ""
   field :school_level,              :type => String, :default => ""
+  field :picture,           :type=> String
   
   ## Recoverable
   field :reset_password_token,   :type => String
