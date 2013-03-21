@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Welcome to HR Factory , <%= @user.first_name %> <%= @user.last_name%></h1>
+    <p>
+      You are invited  to HR Factory, then:<br/>
+      your username is: <%= @user.email %>.<br/>
+      your password is: <%= @user.token %>.<br/>
+    </p>
+    <p>
+      To login to the application, just use ur credentials.
+    </p>
+    <p>Thanks for joining and have a great time!:)</p>
+  </body>
+</html>
