@@ -3,7 +3,7 @@ App1::Application.configure do
 
   # Code is not reloaded between requests
   config.cache_classes = true
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => '192.168.1.230:3000' }
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
@@ -49,8 +49,8 @@ App1::Application.configure do
   # config.assets.precompile += %w( search.js )
 
   # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
-
+   config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries    = true
   # Enable threaded mode
   # config.threadsafe!
 
@@ -60,7 +60,10 @@ App1::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-
+  #action mailer
+  config.action_mailer.delivery_method = :postmark
+  #config.action_mailer.postmark_api_key = "a78efc1c-f665-4d37-b746-57992f1b1e1b"
+  config.action_mailer.postmark_settings= {:api_key => "a78efc1c-f665-4d37-b746-57992f1b1e1b"}
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5

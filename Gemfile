@@ -42,5 +42,5 @@ gem "devise"
 gem "execjs"
 gem 'therubyracer'
 gem "railties"
-gem "tlsmail"
 gem "postmark-rails"
+gem "rabl"

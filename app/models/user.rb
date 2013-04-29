@@ -1,11 +1,12 @@
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps::Created::Short
   belongs_to :group
   belongs_to :company
-  
+
   #has_many :subordinates, :class_name => "User",:foreign_key => "manager_id"
   #belongs_to :manager, :class_name => "User"
-  
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -13,18 +14,22 @@ class User
          :recoverable, :rememberable, :trackable, :validatable
 
   ## Database authenticatable
-  field :email,              :type => String, :default => ""
-  field :encrypted_password, :type => String, :default => ""
-  field :is_ad,              :type => Boolean,:default => false
-  field :first_name,              :type => String, :default => ""
-  field :last_name,              :type => String, :default => ""
-  field :resp,              :type => String, :default => ""
-  field :start_date,              :type => String, :default => ""
-  field :school_level,              :type => String, :default => ""
-  field :picture,           :type=> String
-  field :token,             :type=>String 
+  field :email,                :type => String, :default => ""
+  field :encrypted_password,   :type => String, :default => ""
+  field :is_ad,                :type => Boolean,:default => false
+  field :first_name,           :type => String, :default => ""
+  field :last_name,            :type => String, :default => ""
+  field :resp,                 :type => String, :default => ""
+  field :start_date,           :type => String, :default => ""
+  field :school_level,         :type => String, :default => ""
+  field :picture,              :type=> String, :default => "/images/iUser.png"
+  field :home_phone,           :type=>String
+  field :cell_phone,           :type=>String
+  field :adress,               :type=>String
+  field :role ,                :type=>String, :default => "0"
+  field :token,                :type=>String
   ## Recoverable
-  field :reset_password_token,   :type => String
+  field :reset_password_token, :type => String
   field :reset_password_sent_at, :type => Time
 
   ## Rememberable
@@ -39,9 +44,9 @@ class User
 
   ## Confirmable
   field :confirmation_token,   :type => String
-   field :confirmed_at,         :type => Time
-   field :confirmation_sent_at, :type => Time
-   field :unconfirmed_email,    :type => String # Only if using reconfirmable
+  field :confirmed_at,         :type => Time
+  field :confirmation_sent_at, :type => Time
+  field :unconfirmed_email,    :type => String # Only if using reconfirmable
 
   ## Lockable
   # field :failed_attempts, :type => Integer, :default => 0 # Only if lock strategy is :failed_attempts
@@ -50,6 +55,12 @@ class User
 
   ## Token authenticatable
   # field :authentication_token, :type => String
-  validates_uniqueness_of  :email, :case_sensitive => false
   validates_presence_of :company_id
+  #validates_uniqueness_of  :email, :scope => :company_id
+  validates :email, uniqueness: { scope: [:company_id] }
+  def generate_reset_password_token!
+    puts "achrefs"
+    super if should_generate_reset_token?
+    puts "R.H."
+  end
 end

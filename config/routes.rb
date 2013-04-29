@@ -3,13 +3,19 @@ App1::Application.routes.draw do
 
   resources :groups
   #resources :users, :only => [:index]
-  match 'users/' => 'users#index',:as => :user,         :via => :GET
+  match 'users/:id' => 'users#index',:as => :user,         :via => :GET
   match 'users/update/:id' => 'users#update',:as => :user,         :via => :PUT
   match 'users/group/' => 'users#add_to_group_as_member',:as => :user,         :via => :PUT
   match 'users/delete/' => 'users#destroy',:as => :user,         :via => :DELETE
-  devise_for :users,  :controllers => { :registrations => "registrations" }
-
-  devise_for :admins
+  
+  
+  match 'groups/listgroup/:id' => 'groups#listgroup',:as => :group,         :via => :GET
+   match 'users/listuserbygroup/:id' => 'users#listuserbygroup',:as => :user,         :via => :GET
+  devise_for :users,  :controllers => { :registrations => "registrations" , passwords: 'passwords' }
+  devise_scope :user do
+    get '/users/password/success' => 'passwords#success'
+  end
+  #devise_for :admins
 
 # The priority is based upon order of creation:
 # first created -> highest priority.

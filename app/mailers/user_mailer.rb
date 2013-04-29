@@ -17,8 +17,12 @@ class UserMailer < ActionMailer::Base
 
   def welcome_email(user)
     @user = user
-    mail(:to => user.email, :subject => "Welcome to HR Factory")
+    mail(:to => @user.email, :subject => "Welcome to HR Factory")
   end
 
+  def reset_pwd(user)
+  @user=user
+  mail(:to =>@user.email, :subject => "Reset password instruction")
+  end
 # you can then put any of your own methods here
 end

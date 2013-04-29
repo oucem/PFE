@@ -1,14 +1,26 @@
 class UsersController < ApplicationController
   # GET /users.json
   def index
-    @users = User.all
-
+    @users = User.where(:company_id => params[:id])#, :except => current_user
+    #puts "cuerrenr user///////////////////// #{current_user.email}" 
     respond_to do |format|
     #format.html # index.html.erb
       format.json { render :json => @users }
     end
   end
 
+  # GET /users/listuserbygroup/1
+  # GET /users/listuserbygroup/1.json
+  def listuserbygroup
+    @users = User.where(:group_id => params[:id])
+    puts  @users.to_json
+    respond_to do |format|
+    #format.html # index.html.erb
+      format.json { render :json => @users }
+    end
+  end
+  
+  
   # put /users/group.json
   def add_to_group_as_member
 
@@ -43,24 +55,16 @@ class UsersController < ApplicationController
     end
   end
 
-  def send_invitation
-
-  end
-
   # PUT /users/1d
   # PUT /users/1d.json
   def update
     @user = User.find(params[:id])
-
-    respond_to do |format|
-      if @user.update_attributes(params[:user])
+       @user.update_attributes(params[:user])
         #format.html { redirect_to @group, notice: 'Group was successfully updated.' }
-        format.json { render :json => @user.to_json, :status => 200 }
-      else
-      #format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+        #format.json { render :json => @user.to_json, :status => 200 }
+        render 'show'
+        #format.html { render action: "edit" }
+        #format.json { render json: @user.errors, status: :unprocessable_entity }
   end
 
   # PUT /users/delete.json
@@ -77,5 +81,18 @@ class UsersController < ApplicationController
       end
     end
 
+  end
+
+  def update_password
+    @user = User.find(current_user.id)
+    respond_to do |format|
+      if @user.update_with_password(params[:user])
+        # Sign in the user by passing validation in case his password changed
+        sign_in @user, :bypass => true
+      format.json { render :json => @user.to_json, :status => 204 }
+      else
+        render "edit"
+      end
+    end
   end
 end

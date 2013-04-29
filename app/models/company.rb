@@ -7,6 +7,7 @@ class Company
    
   field :name, type: String
   field :employee_nbr, type: Integer
+  
   #field :location,         :type => String, :default => "" 
   #field :phone,              :type => String, :default => ""
   #field :website,              :type => String, :default => ""

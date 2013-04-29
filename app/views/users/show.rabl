@@ -1,0 +1,2 @@
+object @user
+attributes :id, :company_id, :group_id, :role, :email, :created_at, :is_ad, :first_name, :last_name, :resp, :start_date, :school_level, :picture, :home_phone, :cell_phone,:adress, :remember_created_at

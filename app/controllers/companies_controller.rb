@@ -4,7 +4,7 @@ class CompaniesController < ApplicationController
   def index
     @companies = Company.all
     respond_to do |format|
-      #format.html # index.html.erb
+    #format.html # index.html.erb
       format.json { render :json => @companies }
     end
   end
@@ -13,11 +13,7 @@ class CompaniesController < ApplicationController
   # GET /companies/1.json
   def show
     @company = Company.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @company }
-    end
+    render 'showdata'
   end
 
   # GET /companies/new
@@ -26,7 +22,7 @@ class CompaniesController < ApplicationController
     @company = Company.new
 
     respond_to do |format|
-      #format.html # new.html.erb
+    #format.html # new.html.erb
       format.json { render json: @company }
     end
   end
@@ -42,7 +38,7 @@ class CompaniesController < ApplicationController
     @company = Company.new(params[:company])
 
     respond_to do |format|
-      if @company.save
+      if @company.save              
         #format.html { redirect_to @company, notice: 'Company was successfully created.' }
         format.json { render json: @company, status: :created, location: @company }
       else
